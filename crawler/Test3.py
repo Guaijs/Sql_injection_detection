@@ -19,11 +19,12 @@ from urllib import error
 # 此测试首页是否可以链接
 def url_get(num_retries=5):
     #    url = input("请输入要爬取的首页url:")
-    url = "https://www.newchinalife.com/"
+    url = "http://www.gzu.edu.cn"
     #    url = "http://"
     try:
         # 做一个user-agent模拟浏览器发送请求,也可以加入其它字段
-        kv = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko'}
+        # kv = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko'}
+        kv = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'}
         requests.get(url, headers=kv)
         return url
     except error.URLError or error.HTTPError as e:
@@ -98,7 +99,7 @@ def url_filtrate(pagelinks):
                     "^login", murl) or re.findall("css$", murl) or re.findall("@", murl):
                 pagelinks.remove(murl)
 
-            elif re.findall("^http", murl) and re.findall("newchinalife", murl) is None:
+            elif re.findall("^http", murl) and re.findall("gzu.edu", murl) is None:
                 pagelinks.remove(murl)
 
             elif re.findall("^http", murl):
@@ -111,11 +112,11 @@ def url_filtrate(pagelinks):
                 pagelinks.remove(murl)
 
             elif re.findall("gsp$", murl) or re.findall("shtml$", murl) or re.findall("[0-9]*$", murl):
-                murl = "https://www.newchinalife.com" + str(murl)
+                murl = "http://www.gzu.edu.cn" + str(murl)
                 same_target_url.append(murl)
 
             elif re.findall("^/", murl):
-                murl = "https://www.newchinalife.com" + str(murl)
+                murl = "http://www.gzu.edu.cn" + str(murl)
                 same_target_url.append(murl)
 
             else:
@@ -197,7 +198,7 @@ class Spider():
             if visitedurl is None or visitedurl == '':
                 continue
             title = getTitle(visitedurl)
-            if re.findall("新华保险", title):  # 如果跳出本站则pass
+            if re.findall("", title):  # 如果跳出本站则pass
                 initial_links = spiderpage(visitedurl)  # 爬出该url页面中所有的链接
                 right_links = url_filtrate(initial_links)  # 筛选出合格的链接
                 if not right_links:
@@ -216,11 +217,13 @@ class Spider():
 # 写文件函数
 def writetofile(urllist):
     # 写入网站并计数
+    print(f"开始写入：\n")
     x = 1
     for url in urllist:
         # Furls.txt用于保存链接
         file = open('Furls.txt', 'a', encoding='utf8')
         file.write(f'{url}\n')
+        print(f'写入第{x-1}个url：{url}\n')
         x += 1
     file.close()
     print(f'写入已完成,总计{x-1}个网页的子链接')
@@ -231,5 +234,5 @@ if __name__ == '__main__':
     url = url_get()
     spider = Spider(url)
     # 传入要爬取的子链接数量
-    urllist = spider.crawler(5000)
+    urllist = spider.crawler(10)
     writetofile(urllist)
