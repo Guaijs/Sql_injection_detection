@@ -9,8 +9,8 @@ import sys
 from Sql.lib.core.Spider import SpiderMain
 
 def main():
-    root = "https://www.shiyanlou.com/"
-    # root = "http://www.gzu.edu.cn/"
+    # root = "https://www.shiyanlou.com/"
+    root = "http://fhdemo.s-cms.cn/t1/"
     threadNum = 10
     #spider
     wgd = SpiderMain(root,threadNum)
