@@ -1,0 +1,6 @@
+[*]http://ldmnh.com/run.php?partid=2    出现sql报错回显
+[*]http://www.ddcpc.cn/api.php?op=count&id=52772&modelid=1    出现sql报错回显
+[+]https://www.21cnjy.com/softtype_list.php?typeid=3&amp;chid=2&amp;diquid=16   似乎没有waf
+[*]http://www.ddcpc.cn/api.php?op=count&id=24770&modelid=1    出现sql报错回显
+[+]http://ldmnh.com/run.php?partid=2   似乎没有waf
+[*]https://www.21cnjy.com/softtype_list.php?typeid=3&amp;chid=2&amp;diquid=16    出现sql报错回显
